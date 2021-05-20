@@ -44,10 +44,6 @@ export default {
 
     getPerPage(){
       return this.$store.getters.perPage
-    },
-
-    getCurrentPage(){
-      return this.$store.getters.currentPage
     }
   },
   methods: {
@@ -55,21 +51,11 @@ export default {
   },
   watch: {
     currentPage: function (){
-      // getArticles(this.currentPage).then((res) => {
-      //   this.listArticle = res.data.content.content
-      //   this.totalItem = res.data.content.total * res.data.content.limit
-      //   this.perPage = res.data.content.limit
-      // })
       this.$store.dispatch("initListArticle", this.currentPage)
     }
   },
   created() {
     this.currentPage = 1;
-    // getArticles(1).then((res) => {
-    //   this.listArticle = res.data.content.content
-    //   this.totalItem = res.data.content.total * res.data.content.limit
-    //   this.perPage = res.data.content.limit
-    // })
     this.$store.dispatch("initListArticle", 1)
   }
 }

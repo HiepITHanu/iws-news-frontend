@@ -10,7 +10,8 @@
           <img class="image" v-bind:src="article.image">
         </div>
         <div>{{article.shortIntro}}
-          <p class="links"><a href="#" class="comments">No Comments</a> </p>
+          <p class="links" v-if="article.commentCount > 0"><a href="#" class="comments">{{ article.commentCount }} comments</a> </p>
+          <p class="links" v-else><a href="#" class="comments">No Comments</a> </p>
         </div>
       </div>
     </div>
