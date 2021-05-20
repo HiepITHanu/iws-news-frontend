@@ -34,10 +34,11 @@ const routes = [
   {
     path: '/create-article',
     name: "Create article",
-    component: CreateArticle
+    component: CreateArticle,
+    meta: {requiresAuth: true}
   },
   {
-    path: '/edit-article',
+    path: '/edit-article/:id',
     name: "Edit article",
     component: EditArticle
   },
@@ -56,9 +57,9 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   if(to.matched.some(record => record.meta.requiresAuth)){
-    if(localStorage.getItem("token")){
+    if(!localStorage.getItem("token")){
       next({
-        path: "/login",
+        path: "/signin",
         query: {redirect: to.fullPath}
       })
     }else{

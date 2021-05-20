@@ -106,7 +106,6 @@ export default {
       validateShortIntro: null,
       validateContent: null,
       tags: [],
-      namesOfTags: [],
       selectedTags: [],
       disabled: false,
       selectedCategory: [],
@@ -177,10 +176,6 @@ export default {
   created() {
     getTagsName().then((res) => {
       this.tags = res.data.content
-      this.namesOfTags = this.tags.map(x=> ({
-        'key': x.name,
-        'value': x.name
-      }))
     })
 
     getCategories().then((res) => {

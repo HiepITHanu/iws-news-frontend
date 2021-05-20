@@ -11,7 +11,7 @@
       </b-navbar-brand>
       <b-navbar-brand>
         <b-dropdown text="Tags" class="m-md-2">
-          <b-dropdown-item v-for="(item) in this.tags" :key="item.id" >
+          <b-dropdown-item v-for="(item) in this.tags" :key="item.id" @click="selectTag(item.id)">
             {{ item.name }}
           </b-dropdown-item>
         </b-dropdown>
@@ -66,7 +66,11 @@ export default {
     },
 
     selectCategory(categoryId){
-      console.log(categoryId)
+      this.$store.dispatch("getListArticleByCate", {"categoryId": categoryId,"page": 1})
+    },
+
+    selectTag(tagId){
+      this.$store.dispatch("getListArticleByTag", {"tagId": tagId,"page":  1})
     }
   },
   created() {

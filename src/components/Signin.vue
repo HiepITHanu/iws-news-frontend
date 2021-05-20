@@ -63,6 +63,7 @@ export default {
               }).then(()=>{
                 localStorage.setItem("token", res.headers.authorization)
                 localStorage.setItem("fullName", res.data.content.fullname)
+                localStorage.setItem("accountId", res.data.content.id)
                 this.$router.push('/')
               })
             }

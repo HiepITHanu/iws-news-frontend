@@ -19,7 +19,6 @@ export const getDetailArticle = async (id) => {
             "Access-Control-Request-Headers": "*"
         }
     })
-
     return response;
 }
 
@@ -30,7 +29,6 @@ export const getCategories = async () => {
             "Accept": "application/json"
         }
     })
-
     return response;
 }
 
@@ -41,12 +39,11 @@ export const getTagsName = async () => {
             "Accept": "application/json"
         }
     })
-
     return response;
 }
 
-export const getArticlesByCategory = async (categoryId) => {
-    const response = await axios.get(`http://iws-news.herokuapp.com/test/articles/categories/${categoryId}`, {
+export const getArticlesByCategory = async (categoryId, page) => {
+    const response = await axios.get(`http://iws-news.herokuapp.com/test/articles/categories/${categoryId}/?page=${page}`, {
         headers: {
             "Content-Type": "application/json",
             "Accept": "application/json"
@@ -56,8 +53,8 @@ export const getArticlesByCategory = async (categoryId) => {
     return response;
 }
 
-export const getArticlesByTag = async (tagId) => {
-    const response = await axios.get(`http://iws-news.herokuapp.com/test/articles/tags/${tagId}`, {
+export const getArticlesByTag = async (tagId, page) => {
+    const response = await axios.get(`http://iws-news.herokuapp.com/test/articles/tags/${tagId}/?page=${page}`, {
         headers: {
             "Content-Type": "application/json",
             "Accept": "application/json"
@@ -69,6 +66,28 @@ export const getArticlesByTag = async (tagId) => {
 
 export const getRelevantArticles = async (articleId) => {
     const response = await axios.get(`http://iws-news.herokuapp.com/test/articles/${articleId}/relevant`, {
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        }
+    })
+
+    return response;
+}
+
+export const getArticlesByAccountId = async (accoundId) => {
+    const response = await axios.get(`http://iws-news.herokuapp.com/test/articles/accounts/${accoundId}`, {
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        }
+    })
+
+    return response;
+}
+
+export const getComments = async (articleId, page) => {
+    const response = await axios.get(`http://iws-news.herokuapp.com/test/comments/articles/${articleId}/?page=${page}`, {
         headers: {
             "Content-Type": "application/json",
             "Accept": "application/json"

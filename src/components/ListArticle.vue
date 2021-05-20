@@ -1,7 +1,7 @@
 <template>
   <div>
     <div id="list_article">
-      <div v-for="(item) in this.listArticle" :key="item.id">
+      <div v-for="(item) in getListPost" :key="item.id">
         <router-link :to="'/detail-article/' + item.id">
           <Article class="mb-2" :article="item"></Article>
           <br>
@@ -11,8 +11,8 @@
     <div class="d-flex justify-content-center mt-2">
       <b-pagination
           v-model="currentPage"
-          :total-rows="totalItem"
-          :per-page="perPage"
+          :total-rows="getTotalItems"
+          :per-page="getPerPage"
           aria-controls="list_article"
       ></b-pagination>
     </div>
@@ -20,7 +20,6 @@
 </template>
 
 <script>
-import {getArticles} from "@/service/CommonService";
 import Article from "@/components/Article";
 
 export default {
@@ -30,8 +29,25 @@ export default {
     return {
       listArticle: [],
       currentPage: 0,
-      totalItem: 40,
+      totalItem: 0,
       perPage: 0
+    }
+  },
+  computed: {
+    getListPost(){
+      return this.$store.getters.listArticle
+    },
+
+    getTotalItems(){
+      return this.$store.getters.totalItems
+    },
+
+    getPerPage(){
+      return this.$store.getters.perPage
+    },
+
+    getCurrentPage(){
+      return this.$store.getters.currentPage
     }
   },
   methods: {
@@ -39,21 +55,22 @@ export default {
   },
   watch: {
     currentPage: function (){
-      getArticles(this.currentPage).then((res) => {
-        this.listArticle = res.data.content.content
-        this.totalItem = res.data.content.total * res.data.content.limit
-        this.perPage = res.data.content.limit
-      })
+      // getArticles(this.currentPage).then((res) => {
+      //   this.listArticle = res.data.content.content
+      //   this.totalItem = res.data.content.total * res.data.content.limit
+      //   this.perPage = res.data.content.limit
+      // })
+      this.$store.dispatch("initListArticle", this.currentPage)
     }
   },
   created() {
     this.currentPage = 1;
-    getArticles(1).then((res) => {
-      this.listArticle = res.data.content.content
-      this.totalItem = res.data.content.total * res.data.content.limit
-      this.perPage = res.data.content.limit
-      console.log(this.totalItem)
-    })
+    // getArticles(1).then((res) => {
+    //   this.listArticle = res.data.content.content
+    //   this.totalItem = res.data.content.total * res.data.content.limit
+    //   this.perPage = res.data.content.limit
+    // })
+    this.$store.dispatch("initListArticle", 1)
   }
 }
 </script>
